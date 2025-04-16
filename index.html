@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #ffe6f0;
+      overflow-x: hidden;
+    }
+
+    .container, .video-container, .cake-container, .note-page {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      color: #ff4da6;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff66b3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e60073;
+    }
+
+    .cake-container img {
+      width: 200px;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .note-page {
+      background-color: #fff0f5;
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .note-page p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #333;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    #flowers {
+      margin-top: 30px;
+      display: none;
+    }
+
+    #flowers img {
+      width: 150px;
+      margin: 0 10px;
+    }
+
+    #clickMsg {
+      font-size: 22px;
+      color: #cc0066;
+      margin-top: 20px;
+    }
+
+    .flower-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+
+    .flower {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('flower.png'); /* Replace with your flower image */
+      background-size: cover;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    /* Your existing styles */
+
+    /* Paste this at the bottom */
+    @media (max-width: 768px) {
+      h1, h2 {
+        font-size: 26px;
+      }
+
+      .note-page p {
+        font-size: 18px;
+      }
+
+      .cake-container img {
+        width: 150px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+
+      .photo-gallery img,
+      .photo-gallery video {
+        width: 100%;
+        max-width: 90vw;
+      }
+
+      #flowers img {
+        width: 80px;
+      }
+
+      .gift-boxes {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gift p img {
+        width: 130px !important;
+      }
+    }
+    #flowers {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#flowers img {
+  width: 70px;
+  margin: 5px;
+}
+
+.cake-container img {
+  width: 120px;
+}
+
+#clickMsg {
+  font-size: 18px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Step 1: Welcome -->
+  <div class="container active" id="step1">
+    <h1>Heyy____Q    ☕    π💖(Jii Madam💖) 🎉</h1>
+    <p style="margin-top: 15px;">Here's a little surprise for U 🌸</p>
+    <img src="sticker1.jpg" alt="Birthday Cake" style="margin: 20px 0; max-width: 300px; border-radius: 12px;">
+    <button onclick="nextStep(2)">Open Surprise</button>
+  </div>
+
+  <!-- Step 2: Video Fullscreen -->
+  <div class="container" id="step2" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; padding: 0; margin: 0; z-index: 999;">
+    <video id="birthdayVideo" autoplay muted playsinline style="width: 100vw; height: 100vh; object-fit: contain;
+background-color: black; position: absolute; top: 0; left: 0;">
+      <source src="viedo2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button id="celebrateBtn" onclick="nextStep(3)" style="display: none; position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); padding: 15px 30px; font-size: 20px; background-color: #ff4081; color: white; border: none; border-radius: 10px; cursor: pointer;">Celebrate 🎉</button>
+  </div>
+
+  <!-- Step 3: Cake -->
+  <div class="cake-container" id="step3">
+    <h2 id="cakeHeading">Click to Cut the Cake 🍰</h2>
+    <img id="cakeImg" src="cake1.jpg" alt="Birthday Cake" onclick="cutCake()">
+    <p id="clickMsg">Click the cake to cut it!</p>
+
+    <div id="flowers">
+      <img src="3 (1).jpeg" alt="Flower 1">
+      <img src="step3-1.jpg" alt="Flower 1">
+      <img src="step3-2.jpg" alt="Flower 1">
+      <img src="step3-3.jpg" alt="Flower 1">
+      <img src="step3-4.jpg" alt="Flower 1">
+      
+    </div>
+
+    <button id="nextPageBtn" style="display: none;" onclick="nextStep(4)">Next Page 💌</button>
+  </div>
+
+  <!-- Step 4: Birthday Note -->
+  <div class="note-page" id="step4">
+    <h2>Happy Birthday Baccha 💖</h2>
+    <p>
+      Wish U a very Happy Birthday My💖..!<br><br>
+      You light up the world just by being in it, and I feel so lucky to know you. Your smile, your kindness, your vibe — everything about you is simply beautiful.<br><br>
+      I hope this birthday brings you joy, laughter, and endless sweet moments. May your dreams come true, and may your heart always be full of happiness. 🎈<br><br>
+      Keep shining and spreading your magic like you always do. Wishing you nothing but love, success, and everything you desire! 💫<br><br>
+      Lots of love and best wishes always, <br>
+      — Mehta Ji 💝
+    </p>
+    <button onclick="nextStep(5)">Open Your Gifts 🎁</button>
+  </div>
+
+  <!-- Step 5: Gift Section -->
+<div class="container" id="step5">
+  <h2 style="color: #ff3399; font-family: 'Great Vibes', cursive;">Click the Gifts 🎁</h2>
+  <div class="gift-boxes" style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+    <!-- Gift 1 -->
+    <div class="gift" onclick="openGift(1)" style="cursor: pointer; text-align: center;">
+      <img src="giftpng.png" alt="Gift 1" width="100" id="gift1">
+      <p id="giftText1" style="display:none; margin-top: 10px; font-size: 18px; color: #ff66a3;">
+        <img src="meme2.jpg" alt="Meme" style="width: 150px; border-radius: 12px;">
+        "Mausam bhi keh raha hai kuch khaas ho jaye,<br>
+         17 April ko tum aur main, ek mulaqat ho jaye!" 💕🌦️
+      </p>
+    </div>
+
+    <!-- Gift 2 -->
+    <div class="gift" onclick="openGift(2)" style="cursor: pointer; text-align: center;">
+      <img src="gift2png.jpg" alt="Gift 2" width="100" id="gift2">
+      <p id="giftText2" style="display:none; margin-top: 10px;">
+        <img src="meme.jpg" alt="Meme" style="width: 150px; border-radius: 12px;">
+        ""Tumhara ‘goodnight’ kehna ab bhi yaad hai… aaj bhi lagta hai koi raat tumhare bina adhoori si hai 🌙"
+      </p>
+    </div>
+
+    <!-- Gift 3 -->
+    <div class="gift" onclick="openGift(3)" style="cursor: pointer; text-align: center;">
+      <img src="gift3png.png" alt="Gift 3" width="100" id="gift3">
+      <p id="giftText3" style="display:none; margin-top: 10px;">
+        <img src="flower.png" alt="Flower" style="width: 70px;"><br>
+        Here's a flower for the prettiest 🌸✨
+      </p>
+    </div>
+  </div>
+
+  <button style="margin-top: 40px;" onclick="openFinalSurprise()">Ak or Surprise 🌸</button>
+
+  <button style="margin-top: 40px;" onclick="launchFallingFlowers()">Surprises toh baaki hain... kal milke reveal kre 💫 💖</button>
+</div>
+
+
+  <!-- Falling Flowers Container -->
+  <div class="flower-animation" id="flowerEffect"></div>
+
+  <!-- Script Section -->
+  <script>
+    function nextStep(step) {
+      document.querySelectorAll('.container, .video-container, .cake-container, .note-page').forEach(section => {
+        section.classList.remove('active');
+      });
+      const nextSection = document.getElementById(`step${step}`);
+      if (nextSection) nextSection.classList.add('active');
+
+      if (step === 2) {
+        const video = document.getElementById('birthdayVideo');
+        video.currentTime = 0;
+        video.play();
+        video.onended = () => {
+          document.getElementById("celebrateBtn").style.display = "block";
+        };
+      }
+      else if (step === 5) {
+  document.getElementById('step5').classList.add('active');
+}
+
+    }
+
+    let cakeClicked = false;
+
+    function cutCake() {
+      if (cakeClicked) return;
+      cakeClicked = true;
+
+      const cake = document.getElementById('cakeImg');
+      const flowers = document.getElementById('flowers');
+      const nextBtn = document.getElementById('nextPageBtn');
+      const clickMsg = document.getElementById('clickMsg');
+      const heading = document.getElementById('cakeHeading');
+
+      cake.src = 'cut-cake.jpg';
+      flowers.style.display = 'flex';
+      flowers.style.justifyContent = 'center';
+      flowers.style.gap = '10px';
+      nextBtn.style.display = 'block';
+      clickMsg.style.display = 'none';
+      cake.style.pointerEvents = 'none';
+      heading.textContent = 'Happy Birthday Baccha 💖';
+
+      launchFallingFlowers();
+    }
+
+    function launchFallingFlowers() {
+      const container = document.getElementById('flowerEffect');
+      for (let i = 0; i < 30; i++) {
+        const flower = document.createElement('div');
+        flower.classList.add('flower');
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (3 + Math.random() * 2) + "s";
+        flower.style.animationDelay = (Math.random() * 2) + "s";
+        container.appendChild(flower);
+
+        setTimeout(() => {
+          flower.remove();
+        }, 5000);
+      }
+    }
+    function openGift(num) {
+  const giftImg = document.getElementById(`gift${num}`);
+  const giftText = document.getElementById(`giftText${num}`);
+
+  giftImg.style.display = 'none';
+  giftText.style.display = 'block';
+
+  confetti(); // confetti blast on opening 🎉
+}
+
+function openFinalSurprise() {
+  window.open('final-surprise.html', '_blank');
+}
+
+
+  </script>
+</body>
+</html>
