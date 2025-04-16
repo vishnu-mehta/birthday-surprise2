@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Final Surprise 💝</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 40px;
+      color: #ff1493;
+      margin-bottom: 20px;
+    }
+
+    .photo-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .photo-gallery img {
+      width: 250px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    audio {
+      margin-top: 40px;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff66b3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #e60073;
+    }
+    @media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  .photo-gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .photo-gallery img,
+  .photo-gallery video {
+    width: 90%;
+    max-width: 90vw;
+  }
+
+  .back-btn {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h1>💌 “Kuch likhne ki koshish ki thi tumhare liye…”<br>
+    (Bas dil ki baatein… kuch lafzon mein utarne ki koshish) 🌸
+    
+     💫</h1>
+
+  <div class="photo-gallery">
+    <video controls autoplay muted loop style="width: 100%; max-width: 300px; border-radius: 12px;">
+      <source src="ss1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p>Yeh ek pal, dil ke bahut kareeb hai 💖</p>
+    <img src="ss2.jpg" alt="Memory">
+    <img src="ss3.jpg" alt="Sweet Pic">
+    <img src="ss4.jpg" alt="Smile Forever">
+  </div>
+
+ 
+
+  <button class="back-btn" onclick="window.close()">Close Surprise ✨</button>
+</body>
+</html>
